@@ -1,6 +1,6 @@
 var timeEl = document.querySelector("header");
 
-var seconds = 10;
+var seconds = 100;
 
 var totalScore= 0;
 
@@ -13,8 +13,29 @@ function setTime() {
             clearInterval(timer);
             sendMessag("Finished");
             document.getElementById("Card").innerHTML=totalScore+" answers correct." 
+            var nameInput = document.createElement("input");
+            nameInput.setAttribute('type', 'text');
+            nameInput.setAttribute('value', 'Please Input initials');
+            document.body.appendChild(nameInput)
+            var button= document.createElement("button");
+            document.body.appendChild(button);
+            button.addEventListener('click',function(event) {
+                event.preventDefault();
+                var buttonClick=totalScore;
+                localStorage.setItem("buttonClick", JSON.stringify(buttonClick));
+                send()
+            })
+            
         }
     }, 1000);
+}
+
+function send () {
+    var sentMessage = JSON.parse(localStorage.getItem("buttonClick"));
+    if (sentMessage !== null) {
+        document.getElementById("initials").innerHTML = nameInput
+        document.getElementById("score").innerHTML = totalScore
+    }
 }
 
 function sendMessag() {
